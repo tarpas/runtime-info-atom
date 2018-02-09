@@ -1,0 +1,33 @@
+// The ui-variables file is provided by base themes provided by Atom.
+//
+// See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
+// for a full listing of what's available.
+@import "ui-variables";
+
+.python-runtime-info {
+
+}
+
+
+.python-runtime-info-underline{
+  text-decoration: underline;
+  text-decoration-color: red;
+  text-decoration-style: dotted;
+}
+
+
+.python-runtime-info-gutter-item{
+  color: red;
+  padding: 2px;
+  cursor: pointer;
+}
+
+atom-overlay.python-runtime-info-suffix {
+  z-index: 0 !important
+}
+
+.tree-view-resizer,
+.tab-bar,
+.status-bar {
+  z-index: 2;
+}

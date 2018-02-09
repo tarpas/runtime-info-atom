@@ -1,0 +1,26 @@
+{
+  "context-menu": {
+    "atom-text-editor": [
+      {
+        "label": "Decorate python-runtime-info",
+        "command": "python-runtime-info:decorate"
+      }
+    ]
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "python-runtime-info",
+          "submenu": [
+            {
+              "label": "Decorate",
+              "command": "python-runtime-info:decorate"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

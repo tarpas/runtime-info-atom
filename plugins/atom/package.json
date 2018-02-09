@@ -1,0 +1,15 @@
+{
+  "name": "python-runtime-info",
+  "main": "./lib/runtime-info.js",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "keywords": [],
+  "repository": "https://github.com/tarpas/runtime-info",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+  }
+}
