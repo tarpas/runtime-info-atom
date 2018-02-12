@@ -11,9 +11,16 @@ class EditorDecorator {
     ];
   }
 
-  decorate(marks){
+  clearDecorations(){
+    for(let marker of this.markers){
+      marker.destroy();
+    }
+    this.markers = [];
+  }
+
+  decorate(marks) {
     this.clearDecorations();
-    for (mark of marks) {
+    for (let mark of marks) {
       let range = this.getAtomRange(mark.range);
       switch (mark.type) {
       case 'GutterLink':
@@ -32,48 +39,43 @@ class EditorDecorator {
     }
   }
 
-  getAtomRange(jsonRange){
+  getAtomRange(jsonRange) {
     return [
       this.getAtomPoint(jsonRange.start),
       this.getAtomPoint(jsonRange.end)
     ];
   }
 
-  getAtomPoint(jsonPoint){
+  getAtomPoint(jsonPoint) {
     return [jsonPoint.line, jsonPoint.character];
   }
 
-  clearDecorations(){
-    for(marker of this.markers){
-      marker.destroy();
-    }
-    this.markers = [];
-  }
 
   decorateGutterLink(type, range, targetFilePath = null, targetPoint = null) {
     var gutter = this.getGutter(type);
-    var marker = this.textEditor.markBufferRange(range,{invalidate:'inside'});
+    var marker = this.textEditor.markBufferRange(range, {invalidate: 'inside'});
     this.markers.push(marker);
     var item = this.getGutterItem(type, targetFilePath, targetPoint);
-    gutter.decorateMarker(marker,{
+    gutter.decorateMarker(marker, {
       type: 'gutter',
       item: item
     });
   }
 
-  getGutterItem(type, targetFilePath = null, targetPoint = null){
-    var text, item;
+  getGutterItem(type, targetFilePath = null, targetPoint = null) {
+    var text;
+    var item;
     item = document.createElement('span');
-    item.onclick = (event) => {
+    item.onclick = () => {
       var line = targetPoint[0];
       var column = targetPoint[1];
-      atom.workspace.open(targetFilePath,{
+      atom.workspace.open(targetFilePath, {
         initialLine: line,
         initialColumn: column,
       });
     };
     item.classList.add('python-runtime-info-gutter-item');
-    if(type === 'D'){
+    if (type === 'D') {
       text = document.createTextNode('🡇');
     } else if (type === 'U') {
       text = document.createTextNode('🡅');
@@ -82,10 +84,10 @@ class EditorDecorator {
     return item;
   }
 
-  getGutter(type){
+  getGutter(type) {
     var gutterName = 'python-runtime-info-' + type;
     var gutter = this.textEditor.gutterWithName(gutterName);
-    if(gutter === null){
+    if (gutter === null) {
       gutter = this.textEditor.addGutter({
         name: gutterName,
         visible: true
@@ -95,7 +97,7 @@ class EditorDecorator {
   }
 
   decorateUnderLine(range) {
-    var marker = this.textEditor.markBufferRange(range,{invalidate:'inside'});
+    var marker = this.textEditor.markBufferRange(range, {invalidate: 'inside'});
     this.markers.push(marker);
     this.textEditor.decorateMarker(marker, {
       type: 'text',
@@ -103,18 +105,10 @@ class EditorDecorator {
     });
   }
 
-  decorateSuffix(range, text){
-    var item,text;
-    var marker = this.textEditor.markBufferRange(range,{invalidate:'inside'});
-    var lineHeight = atom.config.get('editor.lineHeight');
+  decorateSuffix(range, text) {
+    var item = this.getSuffixItem(text);
+    var marker = this.textEditor.markBufferRange(range, {invalidate: 'inside'});
     this.markers.push(marker);
-    item = document.createElement('div');
-    item.classList.add('python-runtime-info-suffix-item');
-    item.style.position = 'relative';
-    item.style.top = '-' + lineHeight + 'em';
-    item.style.left = '2em';
-    text = document.createTextNode(text);
-    item.appendChild(text);
     this.textEditor.decorateMarker(marker, {
       type: 'overlay',
       item: item,
@@ -124,8 +118,19 @@ class EditorDecorator {
     });
   }
 
-
-
+  getSuffixItem(text) {
+    var item;
+    var textNode;
+    var lineHeight = atom.config.get('editor.lineHeight'); // TODO: subscribe to change of lineHeight
+    item = document.createElement('div');
+    item.classList.add('python-runtime-info-suffix-item');
+    item.style.position = 'relative';
+    item.style.top = '-' + lineHeight + 'em'; // positions suffix to same line as error
+    item.style.left = '2em';
+    textNode = document.createTextNode(text);
+    item.appendChild(textNode);
+    return item;
+  }
 }
 
 export default EditorDecorator;

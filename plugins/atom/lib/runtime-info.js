@@ -3,18 +3,26 @@
 import { CompositeDisposable } from 'atom';
 import EditorDecorator from './editor-decorator.js';
 import DataAcquirer from './data-acquirer.js';
-import { resolve } from 'path';
 const path = require('path');
 
-export default{
-
-  subscriptions : null,
-  fileDecorators : {},
-  fileMarkList: [],
-  dataAcquirer: null,
+class RuntimeInfoPlugin {
+  constructor() {
+    if (!RuntimeInfoPlugin.instance) {
+      this.subscriptions = null;
+      this.state = null;
+      this.fileDecorators = {};
+      this.fileMarkList = [];
+      this.dataAcquirer = null;
+      RuntimeInfoPlugin.instance = this;
+    }
+    return RuntimeInfoPlugin.instance;
+  }
 
   activate(state) {
-    this.dataAcquirer = new DataAcquirer(state,(fileMarkList) => {this.dataAcquired(fileMarkList);});
+    this.state = state;
+    this.dataAcquirer = new DataAcquirer(state,
+      (fileMarkList) => this.dataAcquired(fileMarkList)
+    );
     this.dataAcquirer.acquire();
     // Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     this.subscriptions = new CompositeDisposable();
@@ -23,52 +31,54 @@ export default{
     this.subscriptions.add(atom.commands.add('atom-workspace', {
       'python-runtime-info:decorate': () => this.dataAcquirer.acquire(),
     }));
-
-  },
+  }
 
   deactivate() {
     this.subscriptions.dispose();
-  },
+  }
 
   serialize() {
-
-  },
+  }
 
   dataAcquired(fileMarkList) {
     this.fileMarkList = fileMarkList;
-    for(filePath in fileMarkList){
+    for (let filePath in fileMarkList) {
       let absolutePath;
-      if(path.isAbsolute(filePath)){
+      if (path.isAbsolute(filePath)) {
         absolutePath = filePath;
       } else {
         absolutePath = path.normalize(__dirname + '/../../../' + filePath);
       }
       this.decorateFile(absolutePath);
     }
-  },
+  }
 
-  decorateFile(filePath){
-    if(this.fileDecorators[filePath] !== undefined){
+  decorateFile(filePath) {
+    if (this.fileDecorators[filePath] !== undefined) {
       let decorator = this.fileDecorators[filePath];
       let fileMarks = this.fileMarkList[filePath];
       decorator.decorate(fileMarks.marks);
     }
-  },
+  }
 
-  unregisterDecorator(filePath){
+  unregisterDecorator(filePath) {
     delete this.fileDecorators[filePath];
-  },
+  }
 
-  registerDecorator(textEditor){
+  registerDecorator(textEditor) {
     var filePath = textEditor.getPath();
     var fileScope = textEditor.getGrammar().scopeName;
-    if(fileScope === 'source.python'){
+    if (fileScope === 'source.python') {
       this.fileDecorators[filePath] = new EditorDecorator(textEditor);
       textEditor.onDidSave(() => this.dataAcquirer.acquire());
       textEditor.onDidDestroy(() => this.unregisterDecorator(filePath));
-      if(this.fileMarkList[filePath] !== undefined){
+      if (this.fileMarkList[filePath] !== undefined) {
         this.decorateFile(filePath);
       }
     }
   }
-};
+}
+
+const runtimeInfoPlugin = new RuntimeInfoPlugin();
+
+export default runtimeInfoPlugin;
