@@ -11,19 +11,24 @@
 
 .python-runtime-info-underline{
   text-decoration: underline;
-  text-decoration-color: red;
+  text-decoration-color: @text-color-error;
   text-decoration-style: dotted;
 }
 
 
 .python-runtime-info-gutter-item{
-  color: red;
+  color: @text-color-error;
   padding: 2px;
   cursor: pointer;
 }
 
-atom-overlay.python-runtime-info-suffix {
-  z-index: 0 !important
+.python-runtime-info-suffix{
+  atom-overlay& {
+    z-index: 0 !important
+  }
+  .python-runtime-info-suffix-item{
+    color: @text-color-error;
+  }
 }
 
 .tree-view-resizer,

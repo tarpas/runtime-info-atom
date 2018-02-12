@@ -110,7 +110,6 @@ class EditorDecorator {
     this.markers.push(marker);
     item = document.createElement('div');
     item.classList.add('python-runtime-info-suffix-item');
-    item.classList.add('text-error');
     item.style.position = 'relative';
     item.style.top = '-' + lineHeight + 'em';
     item.style.left = '2em';
@@ -124,6 +123,8 @@ class EditorDecorator {
       avoidOverflow: false
     });
   }
+
+
 
 }
 
