@@ -6,11 +6,13 @@
 import { CompositeDisposable } from 'atom';
 import EditorDecorator from './editor-decorator.js';
 import DataAcquirer from './data-acquirer.js';
+import RuntimeInfoPanel from './runtime-info-panel.js';
 const path = require('path');
 
 /**
  * Singleton class representing python runtime info plugin.
  * @property {CompositeDisposable}  subscriptions - Easily disposable list of subscriptions
+ * @property {RuntimeInfoPanel}  runtimeInfoPanel - Instance of runtime info panel
  * @property {object} fileDecorators - filePath{String} to {EditorDecorator} map.
  * @property {object} fileMarkMap - filePath{String} to {FileMark} map.
  * @property {DataAcquirer} dataAcquirer - Instance of data acquisition class.
@@ -22,6 +24,7 @@ class RuntimeInfoPlugin {
   */
   constructor() {
     if (!RuntimeInfoPlugin.instance) { // making sure class is singleton
+      this.runtimeInfoPanel = new RuntimeInfoPanel();
       this.subscriptions = new CompositeDisposable();
       this.fileDecorators = {};
       this.fileMarkMap = {};
@@ -37,13 +40,15 @@ class RuntimeInfoPlugin {
   activate(state) {
     // Acquire runtime data
     this.dataAcquirer = new DataAcquirer(
-      (fileMarkMap) => this.dataAcquired(fileMarkMap) // Callback after succesfull acquisition
+      (fileMarkMap, exceptionList) => {
+        this.dataAcquired(fileMarkMap, exceptionList); // Callback after succesfull acquisition
+      }
     );
     this.dataAcquirer.acquire();
     // Subscribe to events
     this.subscriptions.add(
       atom.commands.add('atom-workspace', {
-        'python-runtime-info:decorate': () => this.dataAcquirer.acquire(),
+        'python-runtime-info:refresh': () => this.dataAcquirer.acquire(),
       }),
       atom.workspace.observeTextEditors(// called on all opened TextEditors
         (textEditor) => this.registerDecorator(textEditor)
@@ -72,7 +77,8 @@ class RuntimeInfoPlugin {
   * and calls decorateFile on files from acquired fileMarkMap
   * @param {object} fileMarkMap - Object map of paths to fileMark.
   */
-  dataAcquired(fileMarkMap) {
+  dataAcquired(fileMarkMap, exceptionList) {
+    console.log('ACQUIRED');
     this.fileMarkMap = fileMarkMap;
     for (let filePath in fileMarkMap) {
       let absolutePath;
@@ -83,6 +89,7 @@ class RuntimeInfoPlugin {
       }
       this.decorateFile(absolutePath);
     }
+    this.runtimeInfoPanel.setExceptions(exceptionList);
   }
 
   /**

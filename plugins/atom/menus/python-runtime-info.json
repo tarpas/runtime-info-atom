@@ -1,22 +1,18 @@
 {
-  "context-menu": {
-    "atom-text-editor": [
-      {
-        "label": "Decorate python-runtime-info",
-        "command": "python-runtime-info:decorate"
-      }
-    ]
-  },
   "menu": [
     {
       "label": "Packages",
       "submenu": [
         {
-          "label": "python-runtime-info",
+          "label": "Python runtime info",
           "submenu": [
             {
-              "label": "Decorate",
-              "command": "python-runtime-info:decorate"
+              "label": "Refresh",
+              "command": "python-runtime-info:refresh"
+            },
+            {
+              "label": "Toggle panel",
+              "command": "python-runtime-info:toggle-panel"
             }
           ]
         }

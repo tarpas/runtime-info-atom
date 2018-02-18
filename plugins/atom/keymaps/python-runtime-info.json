@@ -1,5 +1,6 @@
 {
   "atom-workspace": {
-    "ctrl-alt-o": "python-runtime-info:decorate"
+    "ctrl-alt-i": "python-runtime-info:refresh",
+    "ctrl-alt-o": "python-runtime-info:toggle-panel"
   }
 }

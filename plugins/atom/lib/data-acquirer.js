@@ -45,10 +45,11 @@ class DataAcquirer {
     // TODO log stdout and stderr
     var fileMarks = {};
     var jsonData = JSON.parse(stdout);
+    var exceptionList = jsonData.exceptions;
     for (let file of jsonData.fileMarkList) {
       fileMarks[file.path] = file;
     }
-    this.acquisitionCallback(fileMarks);
+    this.acquisitionCallback(fileMarks, exceptionList);
   }
 }
 

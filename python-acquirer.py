@@ -112,6 +112,13 @@ jsonStringTemplate = """
         }
       ]
     }
+  ],
+  "exceptions":[
+    {
+      "path": "%(adding_path)s",
+      "description": "python adding.py: ZeroDivisionError: division by zero",
+      "line": 2
+    }
   ]
 }
 """

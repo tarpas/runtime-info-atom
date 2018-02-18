@@ -9,7 +9,8 @@
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "dependencies": {},
-  "devDependencies": {
-  }
+  "dependencies": {
+    "sb-react-table": "1.0.2"
+  },
+  "devDependencies": {}
 }

@@ -2,6 +2,7 @@
 //
 // See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
 // for a full listing of what's available.
+@import (inline) "../node_modules/sb-react-table/styles/base.css";
 @import "ui-variables";
 
 .python-runtime-info {
@@ -35,4 +36,40 @@
 .tab-bar,
 .status-bar {
   z-index: 2;
+}
+
+#runtime-info-panel-item{
+  .panel-control{
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sb-table{
+    width: 100%;
+    color: @text-color;
+    font-size: @font-size;
+    border: 0;
+    thead{
+      background-color: @base-background-color;
+    }
+    tbody{
+      background-color: @inset-panel-background-color;
+    }
+    th{
+      padding: 3px 10px;
+      border: @base-border-color 1px solid;
+    }
+    td{
+      padding: 3px 10px;
+      min-width: 100px;
+      border: @base-border-color 1px solid;
+    }
+    .sort-icon{
+      display: none;
+    }
+  }
 }
