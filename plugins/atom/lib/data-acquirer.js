@@ -43,6 +43,7 @@ class DataAcquirer {
    */
   processAcquisitionResult(error, stdout, stderr) {
     // TODO log stdout and stderr
+    console.log(stdout);
     var fileMarks = {};
     var jsonData = JSON.parse(stdout);
     var exceptionList = jsonData.exceptions;

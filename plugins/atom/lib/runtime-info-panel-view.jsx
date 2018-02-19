@@ -10,7 +10,7 @@ class InfoPanel extends React.Component {
     this.state = {
       currentFileToggled: false,
       exceptions: [],
-      activePath: this.getCurrentFilePath()
+      activePath: ""
     };
     this.columns = [
       {

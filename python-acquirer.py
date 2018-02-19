@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 import os
+import json
 
 jsonStringTemplate = """
 {
   "fileMarkList":[
     {
-      "path": "%(main_path)s",
+      "path": %(main_path)s,
       "marks":[
         {
           "type": "GutterLink",
           "gutterLinkType": "D",
-          "targetPath": "%(adding_path)s",
+          "targetPath": %(adding_path)s,
           "target": {
             "line": 2,
             "character": 3
@@ -59,12 +60,12 @@ jsonStringTemplate = """
       ]
     },
     {
-      "path": "%(adding_path)s",
+      "path": %(adding_path)s,
       "marks":[
         {
           "type": "GutterLink",
           "gutterLinkType": "U",
-          "targetPath": "%(main_path)s",
+          "targetPath": %(main_path)s,
           "target": {
             "line": 3,
             "character": 3
@@ -115,7 +116,7 @@ jsonStringTemplate = """
   ],
   "exceptions":[
     {
-      "path": "%(adding_path)s",
+      "path": %(adding_path)s,
       "description": "python adding.py: ZeroDivisionError: division by zero",
       "line": 2
     }
@@ -123,8 +124,8 @@ jsonStringTemplate = """
 }
 """
 paths = {
-    "main_path": os.path.abspath("test/main.py"),
-    "adding_path": os.path.abspath("test/adding.py"),
+    "main_path": json.dumps(os.path.abspath("test/main.py")),
+    "adding_path": json.dumps(os.path.abspath("test/adding.py")),
 }
 
 jsonString = jsonStringTemplate % paths
