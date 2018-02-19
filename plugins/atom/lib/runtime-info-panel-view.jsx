@@ -10,7 +10,7 @@ class InfoPanel extends React.Component {
     this.state = {
       currentFileToggled: false,
       exceptions: [],
-      activePath: ""
+      activePath: ''
     };
     this.columns = [
       {
@@ -103,8 +103,17 @@ class InfoPanel extends React.Component {
   }
 
   renderBodyColumn(row, column) {
+    let rowClick = () => {
+      atom.workspace.open(row.path, {
+        initialLine: row.line,
+      });
+    };
     return (
-      <span>{row[column]}</span>
+      <span
+        className="panel-table-column"
+        onClick={rowClick}>
+        {row[column]}
+      </span>
     );
   }
 
@@ -115,7 +124,7 @@ class InfoPanel extends React.Component {
         <div className="panel-control">
           <div className="current-file-toggle">
             <label className='input-label'>
-              <input
+              <inputemitter
                 className='input-toggle' type='checkbox'
                 defaultChecked={this.state.currentFileToggled}
                 onChange={() => this.toggleCurrentFile()}/>

@@ -119,13 +119,18 @@ jsonStringTemplate = """
       "path": %(adding_path)s,
       "description": "python adding.py: ZeroDivisionError: division by zero",
       "line": 2
+    },
+    {
+      "path": %(main_path)s,
+      "description": "python adding.py: ZeroDivisionError: division by zero",
+      "line": 3
     }
   ]
 }
 """
 paths = {
-    "main_path": json.dumps(os.path.abspath("test/main.py")),
-    "adding_path": json.dumps(os.path.abspath("test/adding.py")),
+    "main_path": json.dumps(os.path.abspath("sampleproject/main.py")),
+    "adding_path": json.dumps(os.path.abspath("sampleproject/adding.py")),
 }
 
 jsonString = jsonStringTemplate % paths

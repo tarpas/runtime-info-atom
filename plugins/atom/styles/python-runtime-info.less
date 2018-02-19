@@ -57,7 +57,14 @@
       background-color: @base-background-color;
     }
     tbody{
-      background-color: @inset-panel-background-color;
+      background-color: @app-background-color;
+      tr{
+        cursor: pointer;
+        &:hover{
+          color: @text-color-highlight;
+          background-color: @background-color-highlight;
+        }
+      }
     }
     th{
       padding: 3px 10px;
