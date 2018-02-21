@@ -28,6 +28,6 @@ export function getCurrentFilePath() {
   if (textEditor !== undefined) {
     return textEditor.getPath();
   } else {
-    return this.state.activePath;
+    return '';
   }
 }

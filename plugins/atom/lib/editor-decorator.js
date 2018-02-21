@@ -91,7 +91,6 @@ class EditorDecorator {
    * @return {element}                element for gutter link decoration
    */
   getGutterItem(type, targetFilePath, targetPoint) {
-    var text;
     var item;
     item = document.createElement('span');
     item.onclick = () => {
@@ -102,13 +101,12 @@ class EditorDecorator {
         initialColumn: column,
       });
     };
-    item.classList.add('python-runtime-info-gutter-item');
+    item.classList.add('python-runtime-info-gutter-item', 'icon');
     if (type === GUTTER_TYPE_D) {
-      text = document.createTextNode('🡇');
+      item.classList.add('icon-arrow-down');
     } else if (type === GUTTER_TYPE_U) {
-      text = document.createTextNode('🡅');
+      item.classList.add('icon-arrow-up');
     }
-    item.appendChild(text);
     return item;
   }
   /**
