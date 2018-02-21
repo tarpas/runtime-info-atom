@@ -1,5 +1,6 @@
 'use babel';
 import InfoPanel from './runtime-info-panel-view.jsx';
+import { EVENT_EXCEPTIONS_UPDATED } from './constants.js';
 import { Emitter } from 'atom';
 import { CompositeDisposable } from 'atom';
 import React from 'react';
@@ -38,7 +39,7 @@ export default class RuntimeInfoPanel {
   }
 
   setExceptions(exceptionList) {
-    this.emitter.emit('exceptions-updated', exceptionList);
+    this.emitter.emit(EVENT_EXCEPTIONS_UPDATED, exceptionList);
   }
 
   getIconName() {

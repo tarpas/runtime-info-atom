@@ -1,6 +1,8 @@
 'use babel';
 
 import { CompositeDisposable } from 'atom';
+import { GUTTER_TYPE_U, GUTTER_TYPE_D, DECORATION_TYPE_GUTTER,
+  DECORATION_TYPE_UNDERLINE, DECORATION_TYPE_SUFFIX } from './constants.js';
 import { getAtomRange, getAtomPoint } from './helpers.js';
 
 /**
@@ -21,8 +23,8 @@ class EditorDecorator {
     this.subscriptions = new CompositeDisposable();
     this.markers = [];
     this.gutters = [
-      this.getGutter('U'),
-      this.getGutter('D')
+      this.getGutter(GUTTER_TYPE_U),
+      this.getGutter(GUTTER_TYPE_D)
     ];
   }
   /**
@@ -46,16 +48,16 @@ class EditorDecorator {
     for (let mark of fileMarks) {
       let range = getAtomRange(mark.range);
       switch (mark.type) {
-      case 'GutterLink':
+      case DECORATION_TYPE_GUTTER:
         this.decorateGutterLink(
           mark.gutterLinkType, range,
           mark.targetPath, getAtomPoint(mark.target)
         );
         continue;
-      case 'RedUnderLineDecoration':
+      case DECORATION_TYPE_UNDERLINE:
         this.decorateUnderLine(range);
         continue;
-      case 'Suffix':
+      case DECORATION_TYPE_SUFFIX:
         this.decorateSuffix(range, mark.text);
         continue;
       }
@@ -101,9 +103,9 @@ class EditorDecorator {
       });
     };
     item.classList.add('python-runtime-info-gutter-item');
-    if (type === 'D') {
+    if (type === GUTTER_TYPE_D) {
       text = document.createTextNode('🡇');
-    } else if (type === 'U') {
+    } else if (type === GUTTER_TYPE_U) {
       text = document.createTextNode('🡅');
     }
     item.appendChild(text);

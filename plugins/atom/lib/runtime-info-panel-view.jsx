@@ -2,6 +2,7 @@
 
 import { CompositeDisposable } from 'atom';
 import { getCurrentFilePath } from './helpers.js';
+import { EVENT_EXCEPTIONS_UPDATED } from './constants.js';
 import React from 'react';
 import ReactTable from 'sb-react-table';
 
@@ -51,7 +52,7 @@ class InfoPanel extends React.Component {
 
   componentDidMount() {
     this.subscriptions.add(
-      this.emitter.on('exceptions-updated', (exceptions) =>{
+      this.emitter.on(EVENT_EXCEPTIONS_UPDATED, (exceptions) =>{
         this.updateExceptions(exceptions);
       }),
       atom.workspace.onDidChangeActiveTextEditor(() => { // TODO add to subscriptions
