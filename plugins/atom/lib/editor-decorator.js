@@ -1,6 +1,7 @@
 'use babel';
 
 import { CompositeDisposable } from 'atom';
+import { getAtomRange, getAtomPoint } from './helpers.js';
 
 /**
  * Class used to manage decorations of atom TextEditor.
@@ -43,12 +44,12 @@ class EditorDecorator {
   decorate(fileMarks) {
     this.clearDecorations();
     for (let mark of fileMarks) {
-      let range = this.getAtomRange(mark.range);
+      let range = getAtomRange(mark.range);
       switch (mark.type) {
       case 'GutterLink':
         this.decorateGutterLink(
           mark.gutterLinkType, range,
-          mark.targetPath, this.getAtomPoint(mark.target)
+          mark.targetPath, getAtomPoint(mark.target)
         );
         continue;
       case 'RedUnderLineDecoration':
@@ -59,25 +60,6 @@ class EditorDecorator {
         continue;
       }
     }
-  }
-  /**
-   * Helper function to convert json range to atom Range.
-   * @param  {object} jsonRange - FileMark Range from json
-   * @return {Range} Range in atom format
-   */
-  getAtomRange(jsonRange) {
-    return [
-      this.getAtomPoint(jsonRange.start),
-      this.getAtomPoint(jsonRange.end)
-    ];
-  }
-  /**
-   * Helper function to convert json  point to atom Point.
-   * @param  {object} jsonPoint - FileMark Point form json
-   * @return {Point} Point in atom format.
-   */
-  getAtomPoint(jsonPoint) {
-    return [jsonPoint.line, jsonPoint.character];
   }
 
   /**

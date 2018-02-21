@@ -1,6 +1,7 @@
 'use babel';
 
 import { CompositeDisposable } from 'atom';
+import { getCurrentFilePath } from './helpers.js';
 import React from 'react';
 import ReactTable from 'sb-react-table';
 
@@ -41,7 +42,7 @@ class InfoPanel extends React.Component {
   }
 
   updateActivePath() {
-    let path = this.getCurrentFilePath();
+    let path = getCurrentFilePath();
     this.setState({
       ...this.state,
       activePath: path
@@ -85,15 +86,6 @@ class InfoPanel extends React.Component {
     return rows;
   }
 
-  getCurrentFilePath() { // TODO: refactor to helpers
-    let textEditor = atom.workspace.getActiveTextEditor();
-    if (textEditor !== undefined) {
-      return textEditor.getPath();
-    } else {
-      return this.state.activePath;
-    }
-  }
-
   toggleCurrentFile() {
     this.setState({
       ...this.state,
@@ -101,8 +93,8 @@ class InfoPanel extends React.Component {
     });
   }
 
-  refreshData(e) {
-    atom.commands.dispatch(e.target, 'python-runtime-info:refresh');
+  refreshData(event) {
+    atom.commands.dispatch(event.target, 'python-runtime-info:refresh');
   }
 
   sortRows(sortInfo, rows) {
@@ -132,7 +124,7 @@ class InfoPanel extends React.Component {
         <div className="panel-control">
           <div className="current-file-toggle">
             <label className='input-label'>
-              <inputemitter
+              <input
                 className='input-toggle' type='checkbox'
                 defaultChecked={this.state.currentFileToggled}
                 onChange={() => this.toggleCurrentFile()}/>
