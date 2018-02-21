@@ -1,6 +1,7 @@
 'use babel';
 import InfoPanel from './runtime-info-panel-view.jsx';
 import { Emitter } from 'atom';
+import { CompositeDisposable } from 'atom';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -9,16 +10,16 @@ export default class RuntimeInfoPanel {
   constructor() {
     this.element = document.createElement('div');
     this.element.setAttribute('id', 'runtime-info-panel-item');
-    atom.commands.add('atom-workspace', {
-      'python-runtime-info:toggle-panel': () => this.togglePanel(),
-    });
+    this.subscriptions = new CompositeDisposable();
+    this.subscriptions.add(
+      atom.commands.add('atom-workspace', {
+        'python-runtime-info:toggle-panel': () => this.togglePanel(),
+      })
+    );
 
     this.emitter = new Emitter();
     this.view = (
-      <InfoPanel
-        emitter = {this.emitter}>
-        Message
-      </InfoPanel>
+      <InfoPanel emitter = {this.emitter} />
     );
     ReactDOM.render(this.view, this.element);
   }
@@ -58,6 +59,7 @@ export default class RuntimeInfoPanel {
   }
 
   dispose() {
+    this.subscriptions.dispose();
     this.emitter.dispose();
     this.element.remove();
   }

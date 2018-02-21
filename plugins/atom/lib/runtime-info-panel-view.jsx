@@ -1,11 +1,13 @@
 'use babel';
 
+import { CompositeDisposable } from 'atom';
 import React from 'react';
 import ReactTable from 'sb-react-table';
 
 class InfoPanel extends React.Component {
   constructor(props) {
     super(props);
+    this.subscriptions = new CompositeDisposable();
     this.emitter = props.emitter;
     this.state = {
       currentFileToggled: false,
@@ -28,9 +30,6 @@ class InfoPanel extends React.Component {
         sortable: true
       }
     ];
-    atom.workspace.onDidChangeActiveTextEditor(() => { // TODO add to subscriptions
-      this.updateActivePath();
-    });
   }
 
   shouldComponentUpdate(newProps, newState) {
@@ -50,9 +49,18 @@ class InfoPanel extends React.Component {
   }
 
   componentDidMount() {
-    this.emitter.on('exceptions-updated', (exceptions) =>{
-      this.updateExceptions(exceptions);
-    });
+    this.subscriptions.add(
+      this.emitter.on('exceptions-updated', (exceptions) =>{
+        this.updateExceptions(exceptions);
+      }),
+      atom.workspace.onDidChangeActiveTextEditor(() => { // TODO add to subscriptions
+        this.updateActivePath();
+      })
+    );
+  }
+
+  componentWillUnmount() {
+    this.subscriptions.dispose();
   }
 
   updateExceptions(exceptions) {
