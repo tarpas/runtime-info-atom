@@ -1,6 +1,6 @@
 import json
 
-from suite_data.lib import get_carrot_group, hierarchy_from_nodeids
+from lib import get_carrot_group, hierarchy_from_nodeids
 
 node_ids = """test/test_core.py::TestDeselect::()::test_simple
 test/test_core.py::TestCoverageAssumptions::()::test_before

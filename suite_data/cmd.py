@@ -1,5 +1,5 @@
 import sqlite3
-from suite_data.lib import hierarchy_from_nodeids, get_carrot_group, get_carrot_group_last_level_in_oneleaf
+from lib import hierarchy_from_nodeids, get_carrot_group, get_carrot_group_last_level_in_oneleaf
 import json
 
 testmon_nodeids = """test/test_core.py::TestDepGraph::()::test_affected_list
@@ -105,5 +105,3 @@ with open('carrot_groups.json', 'w') as f:
 
 with open('carrot_groups_last_level_in_one_leaf.json', 'w') as f:
     f.write(json.dumps(get_carrot_group_last_level_in_oneleaf(hierarchy_dict)[0]))
-
-
