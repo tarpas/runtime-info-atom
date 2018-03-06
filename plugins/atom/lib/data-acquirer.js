@@ -1,6 +1,7 @@
 'use babel';
 
 import { exec } from 'child_process';
+import fs from 'fs';
 const path = require('path');
 
 
@@ -27,8 +28,8 @@ class DataAcquirer {
     let pythonAcquirer = path.normalize(__dirname + '/../../../python-acquirer.py');
     // TODO try/catch
     exec(
-      pythonAcquirer,
-      {windowsHide: true, cwd: path.normalize(__dirname + '/../../../')},
+      "pytest", // TODO make this configurable
+      {windowsHide: true, cwd: path.normalize(__dirname + '/../../../sampleproject')},
       (error, stdout, stderr) => this.processAcquisitionResult(error, stdout, stderr)
     );
   }
@@ -44,7 +45,11 @@ class DataAcquirer {
   processAcquisitionResult(error, stdout, stderr) {
     // TODO log stdout and stderr
     var fileMarks = {};
-    var jsonData = JSON.parse(stdout);
+    var filePath = path.normalize(__dirname + '/../../../sampleproject/tests/runtime_test_report.json');
+    var readOutput = fs.readFileSync(filePath,{
+      "encoding": "UTF8",
+    });
+    var jsonData = JSON.parse(readOutput);
     var exceptionList = jsonData.exceptions;
     for (let file of jsonData.fileMarkList) {
       fileMarks[file.path] = file;
