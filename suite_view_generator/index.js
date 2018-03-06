@@ -23,10 +23,10 @@ var template = `
           <div class="test-classes">
             {{#groups}}
               <div class="test-class">
-                <div class="item test-class-name">{{label}}</div>
+                <div class="test-class-name">{{label}}</div>
                 <div class="test-class-tests">
                   {{#groups}}
-                    <div class="item success">{{label}}</div>
+                    <div class="test success">{{label}}</div>
                   {{/groups}}
                 </div>
               </div>

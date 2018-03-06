@@ -7,14 +7,6 @@ body{
   font-size:8px;
 }
 
-.test-class-name{
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  font-weight:bold;
-  padding: 5px;
-}
-
 .test-file{
   padding-bottom: 1em;
 }
@@ -22,12 +14,27 @@ body{
 .file-name{
   font-size: 1.4em;
   font-weight: bold;
+  padding-bottom: 2px;
+}
+
+.test-classes{
+  border: 1px #3A6A3A solid;
+  border-top: none;
+  border-left: none;
 }
 
 .test-class{
   height: auto;
-  border: 1px #3A6A3A solid;
+}
 
+.test-class-name{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-weight:bold;
+  padding: 3px;
+  border-top: 1px #3A6A3A solid;
+  border-left: 1px #3A6A3A solid;
 }
 
 .test-class-tests {
@@ -40,10 +47,12 @@ body{
   align-content: stretch;
 }
 
-.item{
+.test{
   flex-grow:1;
   display:flex;
-  border: 1px #3A6A3A solid;
+  /*border: 1px #3A6A3A solid;*/
+  border-top: 1px #3A6A3A solid;
+  border-left: 1px #3A6A3A solid;
   justify-content: center;
   align-items: center;
   padding: 2px 4px 2px 4px;
