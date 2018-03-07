@@ -20,7 +20,7 @@ class DataAcquirer {
     this.filePath = this.normalizePath(atom.config.get('python-runtime-info.dataAcquisitionJson'));
     console.log("Acquisition json path is: " + this.filePath);
     try {
-      fs.watch(this.filePath, (eventType, filename) => {
+      fs.watchFile(this.filePath, (eventType, filename) => {
         this.fileChanged();
       });
     } catch (e) {
@@ -70,6 +70,7 @@ class DataAcquirer {
   }
 
   fileChanged(){
+    console.log("File changed!");
     var fileMarks = {};
     try {
       var readOutput = fs.readFileSync(this.filePath,{
