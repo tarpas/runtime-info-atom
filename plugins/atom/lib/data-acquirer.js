@@ -24,14 +24,23 @@ class DataAcquirer {
    * this.processAcquisitionResult when acquisition is finished.
    */
   acquire() {
-    // TODO: get script path and cwd path from config
-    let pythonAcquirer = path.normalize(__dirname + '/../../../python-acquirer.py');
-    // TODO try/catch
+    let acquirerCommand = atom.config.get('python-runtime-info.dataAcquisitionCommand');
+    console.log("Acquirer command is: " + acquirerCommand);
+    let wd = this.normalizePath(atom.config.get('python-runtime-info.dataAcquisitionWd'));
+    console.log("Acquisition working dir is: " + wd);
     exec(
-      "pytest", // TODO make this configurable
-      {windowsHide: true, cwd: path.normalize(__dirname + '/../../../sampleproject')},
+      acquirerCommand,
+      {windowsHide: true, cwd: wd},
       (error, stdout, stderr) => this.processAcquisitionResult(error, stdout, stderr)
     );
+  }
+
+  normalizePath(filePath){
+    if (path.isAbsolute(filePath)) {
+      return filePath;
+    }
+    projectPath = atom.project.getPaths();
+    return path.normalize(projectPath + '/' + filePath);
   }
 
   /**
@@ -43,9 +52,11 @@ class DataAcquirer {
    * @param {string} error - error output form data acquisition
    */
   processAcquisitionResult(error, stdout, stderr) {
-    // TODO log stdout and stderr
+    console.log("Pytest error output:\n" + stderr);
+    console.log("Pytest standard output:\n" + stdout);
     var fileMarks = {};
-    var filePath = path.normalize(__dirname + '/../../../sampleproject/tests/runtime_test_report.json');
+    var filePath = this.normalizePath(atom.config.get('python-runtime-info.dataAcquisitionJson'));
+    console.log("Acquisition json path is: " + filePath);
     var readOutput = fs.readFileSync(filePath,{
       "encoding": "UTF8",
     });

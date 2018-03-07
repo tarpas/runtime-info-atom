@@ -14,5 +14,28 @@
     "react-dom": "^16.2.0",
     "sb-react-table": "1.0.2"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "configSchema": {
+    "dataAcquisitionCommand": {
+      "title": "Acquisition command",
+      "type": "string",
+      "description": "Command to run for acquiring data.",
+      "default": "pytest",
+      "order": 1
+    },
+    "dataAcquisitionWd": {
+      "title": "Acquisition working directory",
+      "description": "Absolute path or relative to project directory",
+      "type": "string",
+      "default": "sampleproject",
+      "order": 2
+    },
+    "dataAcquisitionJson": {
+      "title": "Path for acquisition json output",
+      "description": "Absolute path or relative to project directory",
+      "type": "string",
+      "default": "sampleproject/tests/runtime_test_report.json",
+      "order": 2
+    }
+  }
 }
