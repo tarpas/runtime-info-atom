@@ -17,6 +17,19 @@ class DataAcquirer {
    */
   constructor(acquisitionCallback) {
     this.acquisitionCallback = acquisitionCallback;
+    this.filePath = this.normalizePath(atom.config.get('python-runtime-info.dataAcquisitionJson'));
+    console.log("Acquisition json path is: " + this.filePath);
+    try {
+      fs.watch(this.filePath, (eventType, filename) => {
+        this.fileChanged();
+      });
+    } catch (e) {
+      if (e.code === 'ENOENT') {
+        //file does not exists but watcher is waiting for its creation
+      } else {
+        console.error(e);
+      }
+    }
   }
 
   /**
@@ -54,12 +67,18 @@ class DataAcquirer {
   processAcquisitionResult(error, stdout, stderr) {
     console.log("Pytest error output:\n" + stderr);
     console.log("Pytest standard output:\n" + stdout);
+  }
+
+  fileChanged(){
     var fileMarks = {};
-    var filePath = this.normalizePath(atom.config.get('python-runtime-info.dataAcquisitionJson'));
-    console.log("Acquisition json path is: " + filePath);
-    var readOutput = fs.readFileSync(filePath,{
-      "encoding": "UTF8",
-    });
+    try {
+      var readOutput = fs.readFileSync(this.filePath,{
+        "encoding": "UTF8",
+      });
+    } catch (e) {
+      console.error(e);
+      return;
+    }
     var jsonData = JSON.parse(readOutput);
     var exceptionList = jsonData.exceptions;
     for (let file of jsonData.fileMarkList) {
