@@ -1,4 +1,4 @@
-from sampleproject.adding import add
+from adding import add
 
 
 def print_sum(a, b):

@@ -1,4 +1,4 @@
-from sampleproject.main import print_sum
+from main import print_sum
 
 
 def test_print_sum():

@@ -20,7 +20,7 @@
       "title": "Acquisition command",
       "type": "string",
       "description": "Command to run for acquiring data.",
-      "default": "pytest",
+      "default": "python -m pytest",
       "order": 1
     },
     "dataAcquisitionWd": {
