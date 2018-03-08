@@ -1,16 +1,35 @@
+$base-background: rgb(60,63,65);
+$base-text-color: rgb(187,187,177);
+$green: #66BB66;
+$red: #EE4444;
+$blue: #1C5166;
+
+$font-size: 8px;
 $border-color: #3A6A3A;
-$class-name-background: #4BE8D9;
-$success-background-color: #66BB66;
-$error-background-color: #EE4444;
+$class-name-background: $blue;//#4BE8D9;
+$class-text-color: base-text-color;
+$success-background-color: $base-background;
+$error-background-color: $base-background;
 $running-border-color: yellow;
+$body-background: $base-background;
 
 body{
   font-family: mono;
+  font-size: $font-size;
+  background-color: $body-background;
+  color: $base-text-color;
+}
+
+span.imageContainer{
+  max-height: 1em;
+  margin-right: 3px;
+  img{
+    max-height: 1em;
+  }
 }
 
 .test-suite{
   width:320px;
-  font-size:8px;
 }
 
 .test-file{
@@ -24,7 +43,7 @@ body{
 }
 
 .test-classes{
-  border: none;
+  border: 1px solid $border-color;
 }
 
 .test-class{
@@ -34,14 +53,15 @@ body{
 .test-class-name{
   flex-grow:1;
   display:flex;
-  border-top: 1px $border-color solid;
-  border-left: 1px $border-color solid;
+  //border-top: 1px $border-color solid;
+  //border-left: 1px $border-color solid;
   justify-content: center;
   align-items: center;
   padding: 2px 4px 2px 4px;
   overflow: hidden;
   font-weight: bold;
   background-color: $class-name-background;
+  color:$class-text-color;
 }
 
 .test-class-tests {
@@ -52,16 +72,17 @@ body{
   justify-content: stretch;
   align-items: stretch;
   align-content: stretch;
-  margin-top: 5px;
-  border-bottom: 1px $border-color solid;
-  border-right: 1px $border-color solid;
+  //margin-top: 5px;
+  //border-bottom: 1px $border-color solid;
+  //border-right: 1px $border-color solid;
 }
 
 .test{
   flex-grow:1;
   display:flex;
-  border-top: 1px $border-color solid;
-  border-left: 1px $border-color solid;
+  //border-top: 1px $border-color solid;
+  //border-left: 1px $border-color solid;
+  background-color: $base-background;
   justify-content: center;
   align-items: center;
   padding: 2px 4px 2px 4px;
