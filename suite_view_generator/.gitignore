@@ -1,5 +1,6 @@
-.DS_Store
-npm-debug.log
 node_modules
+npm-debug.log
 package-lock.json
-.eslintrc.js
+.DS_Store
+dist
+*.swp
