@@ -11,11 +11,18 @@ var template = `
               <div class="test-class">
                 <div class="test-class-tests">
                   {{#groups}}
-                  <div class="test test-class-name">{{label}}
+                  <div class="test-class-name">{{label}}
                     <span class="arrow"> <i class="fa fa-arrow-right"></i></span>
                   </div>
                   {{#groups}}
-                    <div class="test success">{{label}}</div>
+                    <div class="test success">
+                      <span class="imageContainer">
+                        <img src="static/images/testPassed.png" />
+                      </span>
+                      <span>
+                      {{label}}
+                      </span>
+                    </div>
                   {{/groups}}
                   {{/groups}}
                 </div>
