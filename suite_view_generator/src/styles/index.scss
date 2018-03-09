@@ -8,8 +8,8 @@ $font-size: 8px;
 $border-color: #3A6A3A;
 $class-name-background: $blue;//#4BE8D9;
 $class-text-color: base-text-color;
-$success-background-color: $base-background;
-$error-background-color: $base-background;
+$success-color: $green;
+$error-color: $red;
 $running-border-color: yellow;
 $body-background: $base-background;
 
@@ -93,21 +93,30 @@ span.imageContainer{
   align-items: center;
   padding: 2px 4px 2px 4px;
   overflow: hidden;
-  &.runing{
-    border: 2px solid $running-border-color;
+  &.running{
+    border: 1px solid $running-border-color;
   }
   &.success{
-    background-color: $success-background-color;
+    .imageContainer{
+      color: $success-color;
+    }
   }
   &.error{
-    background-color: $error-background-color;
+    .imageContainer{
+      color: $error-color;
+    }
   }
-  &.stale.error{
-    background: linear-gradient(white, $error-background-color);
+  &.ignored{
+    .imageContainer{
+      color: yellow;
+    }
   }
-  &.stale.success{
-    background: linear-gradient(white, $success-background-color);
+  &.stale{
+     opacity: 0.5;
   }
+  // &.stale.success{
+  //   background: linear-gradient(white, $success-background-color);
+  // }
 }
 
 

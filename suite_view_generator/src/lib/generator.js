@@ -3,7 +3,7 @@
 import mustache from 'mustache';
 
 var template = `
-    <div class="test-suite">
+    <div class="test-suite" id="test-id">
       {{#groups}}
         <div class="test-file">
           <div class="file-name">{{label}}</div>
@@ -15,9 +15,9 @@ var template = `
                     <span class="arrow"> <i class="fa fa-arrow-right"></i></span>
                   </div>
                   {{#groups}}
-                    <div class="test success">
+                    <div class="test success" id="test-{{label}}">
                       <span class="imageContainer">
-                        <img src="static/images/testPassed.png" />
+                        <i class="fa fa-check-circle"></i>
                       </span>
                       <span class="test-name">
                         {{label}}
