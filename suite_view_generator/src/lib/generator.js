@@ -19,8 +19,8 @@ var template = `
                       <span class="imageContainer">
                         <img src="static/images/testPassed.png" />
                       </span>
-                      <span>
-                      {{label}}
+                      <span class="test-name">
+                        {{label}}
                       </span>
                     </div>
                   {{/groups}}

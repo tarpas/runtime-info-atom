@@ -3,6 +3,9 @@ import React from 'react';
 import fs from 'fs';
 import generateView from './lib/generator.js'
 
+const MIN_FONT_SIZE = 8;
+const MAX_FONT_SIZE = 20;
+
 class App extends React.Component {
 
   constructor(props) {
@@ -29,6 +32,11 @@ class App extends React.Component {
 
   updateFontSize(){
     var body = document.getElementsByTagName("BODY")[0];
+    if(this.fontSize < MIN_FONT_SIZE){
+      this.generatedContentContainer.classList.add('minimized')
+    } else {
+      this.generatedContentContainer.classList.remove('minimized')
+    }
     body.style.fontSize = Math.floor(this.fontSize)+"px";
   }
 
@@ -40,12 +48,26 @@ class App extends React.Component {
     this.generatedContentContainer.innerHTML = viewHTML;
   }
 
+  normalizeDelta(delta){ //ensures small steps and max 1px chande per scroll
+    var smallDelta = delta/50.0;
+    if(smallDelta > 1){
+      return 1;
+    } else if(smallDelta < -1){
+      return -1;
+    }
+    return smallDelta;
+  }
+
   handleScroll(event){
+    var fontSize = this.fontSize;
     if (event.ctrlKey) {
       event.preventDefault();
-      var delta = event.deltaY/50.0
+      var delta = this.normalizeDelta(event.deltaY);
       if(!isNaN(delta)){
-        this.fontSize = this.fontSize + delta;
+        if((delta < 0 && fontSize >= MIN_FONT_SIZE) ||
+           (delta > 0 && fontSize <= MAX_FONT_SIZE)){
+          this.fontSize = this.fontSize + delta;
+        }
         this.updateFontSize();
       }
     }

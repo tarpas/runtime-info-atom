@@ -32,6 +32,12 @@ span.imageContainer{
   width:320px;
 }
 
+.minimized{
+  .test-name{
+    display: none;
+  }
+}
+
 .test-file{
   padding-bottom: 1em;
 }
