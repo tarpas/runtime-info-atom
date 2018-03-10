@@ -44,16 +44,16 @@ setStale = function setStale(testName,value){
 }
 
 function animate(steps,interval){
-  var current_step = 0;
-  var step_count = steps.length;
+  var currentStep = 0;
+  var stepCount = steps.length;
   function draw(){
-    if(current_step === step_count){
+    if(currentStep === stepCount){
       return;
     }
     setTimeout(() => {
         requestAnimationFrame(draw);
-        steps[current_step]();
-        current_step++;
+        steps[currentStep]();
+        currentStep++;
     }, interval);
   }
   draw();
@@ -95,6 +95,9 @@ runSimulation = function(){
       setRunning("dep_graph4",false);
       setRunning("dep_graph_new",true);
     },
+    () => {
+      setRunning("dep_graph_new",false);
+    }
   ];
   //initial state
   setStale("classes_depggraph",true);
