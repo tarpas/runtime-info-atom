@@ -38,7 +38,6 @@ class App extends React.Component {
       this.generatedContentContainer.classList.remove('minimized')
     }
     body.style.fontSize = Math.floor(this.fontSize)+"px";
-    console.log(document.getElementById('test-id'));
   }
 
   renderSuiteDataView(){

@@ -1,6 +1,6 @@
 
 const STATE = {
-  "SUCCESS": "sucess",
+  "SUCCESS": "success",
   "ERROR": "error",
   "IGNORED": "ignored",
 }
@@ -9,14 +9,6 @@ const STATE_ICON_CLASS = {
   "SUCCESS": "fa-check-circle",
   "ERROR": "fa-times-circle",
   "IGNORED": "fa-question-circle",
-}
-
-function wait(ms) {
-    var start = Date.now(),
-        now = start;
-    while (now - start < ms) {
-      now = Date.now();
-    }
 }
 
 changeState = function changeState(testName,stateName){
@@ -31,8 +23,6 @@ changeState = function changeState(testName,stateName){
     className += " stale";
   }
   test.className = className;
-  test.style.display = "none";
-  test.style.display = "block";
 }
 
 setRunning = function setRunning(testName,value){
@@ -42,8 +32,6 @@ setRunning = function setRunning(testName,value){
   } else {
     test.classList.remove('running');
   }
-  test.style.display = "none";
-  test.style.display = "block";
 }
 
 setStale = function setStale(testName,value){
@@ -53,24 +41,63 @@ setStale = function setStale(testName,value){
   } else {
     test.classList.remove('stale');
   }
-  test.style.display = "none";
-  test.style.display = "block";
 }
 
-runSimulation = function(){
-    window.requestAnimationFrame( () => {
-      setRunning("dep_graph_new",true);
-    });
-    wait(1000);
-    window.requestAnimationFrame( () => {
-      changeState("dep_graph_new","ERROR");
-      setRunning("dep_graph_new",false);
-      setRunning("affected_list",true);
-    });
-    wait(1000);
-    window.requestAnimationFrame( () => {
-      setRunning("affected_list",false);
-      setRunning("two_modules_combination",true);
-    });
+function animate(steps,interval){
+  var current_step = 0;
+  var step_count = steps.length;
+  function draw(){
+    if(current_step === step_count){
+      return;
+    }
+    setTimeout(() => {
+        requestAnimationFrame(draw);
+        steps[current_step]();
+        current_step++;
+    }, interval);
+  }
+  draw();
+}
 
+
+runSimulation = function(){
+  var steps = [
+    () => {
+      setRunning("affected_list",true);
+    },
+    () => {
+      setRunning("affected_list",false);
+      changeState("affected_list","ERROR");
+      setRunning("affected_list2",true);
+    },
+    () => {
+      setRunning("affected_list2",false);
+      setRunning("classes_depggraph",true);
+      setStale("classes_depggraph",false);
+    },
+    () => {
+      setRunning("classes_depggraph",false);
+      changeState("classes_depggraph","SUCCESS");
+      changeState("dep_graph1","IGNORED");
+      changeState("dep_graph2","IGNORED");
+      setRunning("dep_graph3",true);
+    },
+    () => {
+      setRunning("dep_graph3",false);
+      setRunning("dep_graph4",true);
+      setStale("sqlite_assumption",true);
+      setStale("write_data",true);
+      setStale("write_read_data",true);
+      setStale("write_read_data2",true);
+    },
+    () => {
+      changeState("dep_graph4","ERROR");
+      setRunning("dep_graph4",false);
+      setRunning("dep_graph_new",true);
+    },
+  ];
+  //initial state
+  setStale("classes_depggraph",true);
+  changeState("classes_depggraph","ERROR");
+  animate(steps,1000);
 }
