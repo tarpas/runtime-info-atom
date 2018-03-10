@@ -86,8 +86,7 @@ span.imageContainer{
 .test{
   flex-grow:1;
   display:flex;
-  //border-top: 1px $border-color solid;
-  //border-left: 1px $border-color solid;
+  border: 1px $base-background solid;
   background-color: $base-background;
   justify-content: center;
   align-items: center;
@@ -96,17 +95,17 @@ span.imageContainer{
   &.running{
     border: 1px solid $running-border-color;
   }
-  &.success{
+  &.passed{
     .imageContainer{
       color: $success-color;
     }
   }
-  &.error{
+  &.failed{
     .imageContainer{
       color: $error-color;
     }
   }
-  &.ignored{
+  &.skipped{
     .imageContainer{
       color: yellow;
     }

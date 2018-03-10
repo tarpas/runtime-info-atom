@@ -1,14 +1,14 @@
 
 const STATE = {
-  "SUCCESS": "success",
-  "ERROR": "error",
-  "IGNORED": "ignored",
+  "PASSED": "passed",
+  "FAILED": "failed",
+  "SKIPPED": "skipped",
 }
 
 const STATE_ICON_CLASS = {
-  "SUCCESS": "fa-check-circle",
-  "ERROR": "fa-times-circle",
-  "IGNORED": "fa-question-circle",
+  "PASSED": "fa-check-circle",
+  "FAILED": "fa-times-circle",
+  "SKIPPED": "fa-minus-circle",
 }
 
 changeState = function changeState(testName,stateName){
@@ -67,19 +67,19 @@ runSimulation = function(){
     },
     () => {
       setRunning("affected_list",false);
-      changeState("affected_list","ERROR");
+      changeState("affected_list","FAILED");
       setRunning("affected_list2",true);
     },
     () => {
       setRunning("affected_list2",false);
       setRunning("classes_depggraph",true);
-      setStale("classes_depggraph",false);
     },
     () => {
       setRunning("classes_depggraph",false);
-      changeState("classes_depggraph","SUCCESS");
-      changeState("dep_graph1","IGNORED");
-      changeState("dep_graph2","IGNORED");
+      changeState("classes_depggraph","PASSED");
+      setStale("classes_depggraph",false);
+      changeState("dep_graph1","SKIPPED");
+      changeState("dep_graph2","SKIPPED");
       setRunning("dep_graph3",true);
     },
     () => {
@@ -91,13 +91,13 @@ runSimulation = function(){
       setStale("write_read_data2",true);
     },
     () => {
-      changeState("dep_graph4","ERROR");
+      changeState("dep_graph4","FAILED");
       setRunning("dep_graph4",false);
       setRunning("dep_graph_new",true);
     },
   ];
   //initial state
   setStale("classes_depggraph",true);
-  changeState("classes_depggraph","ERROR");
+  changeState("classes_depggraph","FAILED");
   animate(steps,1000);
 }

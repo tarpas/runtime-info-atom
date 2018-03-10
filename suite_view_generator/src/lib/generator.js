@@ -15,7 +15,7 @@ var template = `
                     <span class="arrow"> <i class="fa fa-arrow-right"></i></span>
                   </div>
                   {{#groups}}
-                    <div class="test success" id="test-{{label}}">
+                    <div class="test passed" id="test-{{label}}">
                       <span class="imageContainer">
                         <i class="fa fa-check-circle"></i>
                       </span>
