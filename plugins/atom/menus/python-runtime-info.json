@@ -7,10 +7,6 @@
           "label": "Python runtime info",
           "submenu": [
             {
-              "label": "Refresh",
-              "command": "python-runtime-info:refresh"
-            },
-            {
               "label": "Toggle panel",
               "command": "python-runtime-info:toggle-panel"
             }

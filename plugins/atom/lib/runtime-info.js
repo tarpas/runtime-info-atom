@@ -47,9 +47,6 @@ class RuntimeInfoPlugin {
     this.dataAcquirer.acquire();
     // Subscribe to events
     this.subscriptions.add(
-      atom.commands.add('atom-workspace', {
-        'python-runtime-info:refresh': () => this.dataAcquirer.acquire(),
-      }),
       atom.workspace.observeTextEditors(// called on all opened TextEditors
         (textEditor) => this.registerDecorator(textEditor)
       )
@@ -122,7 +119,6 @@ class RuntimeInfoPlugin {
     if (fileScope === 'source.python') {
       this.fileDecorators[filePath] = new EditorDecorator(textEditor);
       this.subscriptions.add(
-        textEditor.onDidSave(() => this.dataAcquirer.acquire()),
         textEditor.onDidDestroy(() => this.unregisterDecorator(filePath))
       );
       if (this.fileMarkMap[filePath] !== undefined) {

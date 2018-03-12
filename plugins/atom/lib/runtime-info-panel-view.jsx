@@ -55,7 +55,7 @@ class InfoPanel extends React.Component {
       this.emitter.on(EVENT_EXCEPTIONS_UPDATED, (exceptions) =>{
         this.updateExceptions(exceptions);
       }),
-      atom.workspace.onDidChangeActiveTextEditor(() => { // TODO add to subscriptions
+      atom.workspace.onDidChangeActiveTextEditor(() => {
         this.updateActivePath();
       })
     );
@@ -94,10 +94,6 @@ class InfoPanel extends React.Component {
     });
   }
 
-  refreshData(event) {
-    atom.commands.dispatch(event.target, 'python-runtime-info:refresh');
-  }
-
   sortRows(sortInfo, rows) {
     // TODO: Implement sorting and sorting arrows
     return rows;
@@ -132,10 +128,6 @@ class InfoPanel extends React.Component {
               Current File Only
             </label>
           </div>
-          <button
-            className='btn icon icon-sync inline-block'
-            onClick={this.refreshData}>Refresh
-          </button>
         </div>
         <div className="panel-table">
           <ReactTable
