@@ -1,9 +1,14 @@
 {
-  "name": "python-runtime-info",
+  "name": "runtime-info-atom",
   "main": "./lib/runtime-info.js",
   "version": "0.0.0",
   "description": "Atom package that shows python runtime information in text editor",
-  "keywords": ["python","runtime info","exceptions","traceback"],
+  "keywords": [
+    "python",
+    "runtime info",
+    "exceptions",
+    "traceback"
+  ],
   "repository": "https://github.com/tarpas/runtime-info-atom",
   "license": "MIT",
   "engines": {
@@ -14,5 +19,5 @@
     "react-dom": "^16.2.0",
     "sb-react-table": "1.0.2"
   },
-  "devDependencies": {},
+  "devDependencies": {}
 }

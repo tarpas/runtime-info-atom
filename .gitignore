@@ -1,5 +1,5 @@
-.ropeproject
-**/.pytest_cache
-*.pyc
-.idea
-**/__pycache__
+.DS_Store
+npm-debug.log
+node_modules
+package-lock.json
+.eslintrc.js
