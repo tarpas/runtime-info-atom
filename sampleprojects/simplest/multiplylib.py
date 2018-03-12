@@ -1,4 +1,4 @@
-from tests.addlib import add1
+from addlib import add1
 
 def multiply(a, b):
     result = 0
