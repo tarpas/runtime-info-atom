@@ -1,5 +1,5 @@
 {
   "atom-workspace": {
-    "ctrl-alt-o": "python-runtime-info:toggle-panel"
+    "ctrl-alt-o": "runtime-info-atom:toggle-panel"
   }
 }

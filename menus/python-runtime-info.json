@@ -8,7 +8,7 @@
           "submenu": [
             {
               "label": "Toggle panel",
-              "command": "python-runtime-info:toggle-panel"
+              "command": "runtime-info-atom:toggle-panel"
             }
           ]
         }

@@ -5,29 +5,29 @@
 @import (inline) "../node_modules/sb-react-table/styles/base.css";
 @import "ui-variables";
 
-.python-runtime-info {
+.runtime-info-atom {
 
 }
 
 
-.python-runtime-info-underline{
+.runtime-info-atom-underline{
   text-decoration: underline;
   text-decoration-color: @text-color-error;
   text-decoration-style: dotted;
 }
 
 
-.python-runtime-info-gutter-item{
+.runtime-info-atom-gutter-item{
   color: @text-color-error;
   padding: 2px;
   cursor: pointer;
 }
 
-.python-runtime-info-suffix{
+.runtime-info-atom-suffix{
   atom-overlay& {
     z-index: 0 !important
   }
-  .python-runtime-info-suffix-item{
+  .runtime-info-atom-suffix-item{
     color: @text-color-error;
   }
 }
@@ -39,12 +39,12 @@
 }
 
 .gutter{
-  &[gutter-name='python-runtime-info-D']{
+  &[gutter-name='runtime-info-atom-D']{
     .icon::before{
       display: inline;
     }
   }
-  &[gutter-name='python-runtime-info-U']{
+  &[gutter-name='runtime-info-atom-U']{
     .icon::before{
       display: inline;
     }
