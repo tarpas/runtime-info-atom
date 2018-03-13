@@ -1,7 +1,7 @@
 {
   "name": "runtime-info-atom",
   "main": "./lib/runtime-info.js",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Atom package that shows python runtime information in text editor",
   "keywords": [
     "python",
